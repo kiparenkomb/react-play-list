@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import allReducers from './reducers';
+import PlayListTracks from './components/PlayListTracks';
 
+const store = createStore (allReducers);
 
 function PlayButton(props) {
     const className = props.isMusicPlaying ? 'play is-active' : 'play';
@@ -87,6 +92,9 @@ class App extends Component {
                     ref={(audioTag) => { this.audio = audioTag }}
                     autoPlay={ this.state.autoPlayAudio }
                     loop={ this.state.loopAudio } />
+                <Provider store={store}>
+                    <PlayListTracks />
+                </Provider>
             </div>
         );
     }
